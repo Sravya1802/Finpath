@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Visa Type - FinPath</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- 
+        HCI PRINCIPLES APPLIED:
+        - Progressive Disclosure: Visa selection first, then information appears
+        - Visibility: Clear visual feedback when visa is selected
+        - Affordance: Cards clearly look clickable with hover states
+        - Consistency: Consistent design patterns throughout
+        - Feedback: Immediate visual response to selection
+        - Mapping: Clear relationship between selection and displayed content
+    -->
+    
+    <div class="container">
+        <!-- Step Indicator (HCI: Visibility of system status) -->
+        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 30px; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <div style="width: 30px; height: 30px; border-radius: 50%; background-color: var(--accent-blue); color: white; display: flex; align-items: center; justify-content: center; font-weight: 600;">1</div>
+                <span style="font-weight: 600; color: var(--accent-blue);">Select Visa</span>
+            </div>
+            <div style="width: 50px; height: 2px; background-color: var(--border-color);"></div>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <div style="width: 30px; height: 30px; border-radius: 50%; background-color: var(--border-color); color: var(--text-medium); display: flex; align-items: center; justify-content: center; font-weight: 600;">2</div>
+                <span style="color: var(--text-medium);">View Info</span>
+            </div>
+            <div style="width: 50px; height: 2px; background-color: var(--border-color);"></div>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <div style="width: 30px; height: 30px; border-radius: 50%; background-color: var(--border-color); color: var(--text-medium); display: flex; align-items: center; justify-content: center; font-weight: 600;">3</div>
+                <span style="color: var(--text-medium);">Sign Up</span>
+            </div>
+        </div>
+
+        <!-- Welcome Section -->
+        <div class="welcome-section" style="margin-bottom: 30px;">
+            <h1>Select Your Visa Type</h1>
+            <p>Choose the option that best describes your situation to get personalized financial guidance</p>
+        </div>
+
+        <!-- Visa Selection Section -->
+        <section id="visa-selection-section">
+            <div class="visa-options">
+                <!-- F-1 Student Visa Card -->
+                <div class="visa-card" data-visa="F-1" onclick="selectVisa('F-1')" role="button" tabindex="0" aria-label="Select F-1 Student Visa">
+                    <div style="font-size: 3em; margin-bottom: 10px;">🎓</div>
+                    <h3>F-1</h3>
+                    <p style="font-weight: 600; margin: 5px 0;">Student Visa</p>
+                    <p style="font-size: 0.9em; margin-top: 10px; color: var(--text-medium);">For international students studying in the U.S.</p>
+                </div>
+
+                <!-- H-1B Worker Visa Card -->
+                <div class="visa-card" data-visa="H-1B" onclick="selectVisa('H-1B')" role="button" tabindex="0" aria-label="Select H-1B Worker Visa">
+                    <div style="font-size: 3em; margin-bottom: 10px;">💼</div>
+                    <h3>H-1B</h3>
+                    <p style="font-weight: 600; margin: 5px 0;">Worker Visa</p>
+                    <p style="font-size: 0.9em; margin-top: 10px; color: var(--text-medium);">For skilled workers employed in the U.S.</p>
+                </div>
+
+                <!-- Refugee Card -->
+                <div class="visa-card" data-visa="Refugee" onclick="selectVisa('Refugee')" role="button" tabindex="0" aria-label="Select Refugee Status">
+                    <div style="font-size: 3em; margin-bottom: 10px;">🏠</div>
+                    <h3>Refugee</h3>
+                    <p style="font-weight: 600; margin: 5px 0;">Refugee Status</p>
+                    <p style="font-size: 0.9em; margin-top: 10px; color: var(--text-medium);">For refugees resettling in the U.S.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visa Information Section (Progressive Disclosure - HCI Principle) -->
+        <section id="visa-info-section" style="display: none; margin-top: 40px; animation: fadeIn 0.5s ease-in;">
+            <div style="text-align: center; padding: 25px; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--soft-green) 100%); border-radius: 10px; margin-bottom: 30px; box-shadow: 0 4px 15px var(--shadow);">
+                <h1 id="visa-title" style="color: var(--text-dark); margin-bottom: 10px;"></h1>
+                <p id="visa-subtitle" style="color: var(--text-dark); font-size: 1.1em;"></p>
+            </div>
+
+            <!-- Financial Information Cards (HCI: Chunking information) -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                <div class="card" style="background: linear-gradient(135deg, var(--primary-blue) 0%, #BBDEFB 100%); border: none;">
+                    <div style="font-size: 2.5em; margin-bottom: 10px;">📋</div>
+                    <h3 style="color: var(--accent-blue); margin-bottom: 15px;">Key Financial Information</h3>
+                    <div id="financial-rules"></div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, var(--soft-green) 0%, #C8E6C9 100%); border: none;">
+                    <div style="font-size: 2.5em; margin-bottom: 10px;">💡</div>
+                    <h3 style="color: var(--accent-green); margin-bottom: 15px;">Quick Tips</h3>
+                    <div id="quick-tips"></div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons (HCI: Clear call-to-action) -->
+            <div class="nav-buttons" style="margin-top: 30px;">
+                <a href="index.html" class="btn" style="background-color: var(--text-medium);">← Back</a>
+                <a href="signup.html" class="btn btn-secondary btn-large" style="font-size: 18px; padding: 15px 35px;">Continue to Sign Up →</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Chatbot Button -->
+    <button class="chatbot-button" id="chatbot-button" title="Chat with FinPath Assistant" aria-label="Open chatbot">💬</button>
+
+    <!-- Chatbot Panel -->
+    <div class="chatbot-panel" id="chatbot-panel">
+        <div class="chatbot-header">
+            <span>FinPath Assistant</span>
+            <button class="chatbot-close" id="chatbot-close" aria-label="Close chatbot">×</button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages"></div>
+        <div class="chatbot-input-container">
+            <input type="text" class="chatbot-input" id="chatbot-input" placeholder="Ask a question...">
+            <button class="chatbot-send" id="chatbot-send">Send</button>
+        </div>
+    </div>
+
+    <script src="scripts/navigation.js"></script>
+    <script src="scripts/chatbot.js"></script>
+    <script>
+        // Visa-specific content data
+        const visaContent = {
+            'F-1': {
+                title: 'F-1 Student Visa',
+                subtitle: 'Financial guidance for international students',
+                financialRules: `
+                    <ul style="text-align: left; margin-left: 20px;">
+                        <li style="margin-bottom: 10px;"><strong>SSN:</strong> Required for employment. Apply with passport, visa, I-94, and employment authorization</li>
+                        <li style="margin-bottom: 10px;"><strong>Banking:</strong> Many banks offer student accounts with no monthly fees</li>
+                        <li style="margin-bottom: 10px;"><strong>Credit Building:</strong> Start with secured credit cards or become an authorized user</li>
+                        <li style="margin-bottom: 10px;"><strong>Tax Filing:</strong> File as non-resident alien (Form 1040NR) if you have U.S. income</li>
+                    </ul>
+                `,
+                quickTips: `
+                    <ul style="text-align: left; margin-left: 20px;">
+                        <li style="margin-bottom: 10px;">Open a bank account early to establish financial history</li>
+                        <li style="margin-bottom: 10px;">Start building credit as soon as you get an SSN</li>
+                        <li style="margin-bottom: 10px;">Keep track of expenses and create a budget</li>
+                        <li style="margin-bottom: 10px;">File taxes by April 15th if you have income</li>
+                    </ul>
+                `
+            },
+            'H-1B': {
+                title: 'H-1B Worker Visa',
+                subtitle: 'Financial guidance for skilled workers',
+                financialRules: `
+                    <ul style="text-align: left; margin-left: 20px;">
+                        <li style="margin-bottom: 10px;"><strong>SSN:</strong> Required and typically obtained during visa processing</li>
+                        <li style="margin-bottom: 10px;"><strong>Banking:</strong> Full access to banking services - compare accounts for best rates</li>
+                        <li style="margin-bottom: 10px;"><strong>Credit Building:</strong> Eligible for all credit products - start building history early</li>
+                        <li style="margin-bottom: 10px;"><strong>Tax Filing:</strong> File as resident alien (Form 1040) - subject to all U.S. taxes</li>
+                    </ul>
+                `,
+                quickTips: `
+                    <ul style="text-align: left; margin-left: 20px;">
+                        <li style="margin-bottom: 10px;">Maximize employer 401(k) match if available</li>
+                        <li style="margin-bottom: 10px;">Build emergency fund (6-12 months of expenses)</li>
+                        <li style="margin-bottom: 10px;">Start building credit history immediately</li>
+                        <li style="margin-bottom: 10px;">Plan for long-term financial goals</li>
+                    </ul>
+                `
+            },
+            'Refugee': {
+                title: 'Refugee Status',
+                subtitle: 'Financial guidance for refugees resettling in the U.S.',
+                financialRules: `
+                    <ul style="text-align: left; margin-left: 20px;">
+                        <li style="margin-bottom: 10px;"><strong>SSN:</strong> Apply immediately upon arrival at Social Security office</li>
+                        <li style="margin-bottom: 10px;"><strong>Banking:</strong> Eligible for all banking services - many banks offer special programs</li>
+                        <li style="margin-bottom: 10px;"><strong>Credit Building:</strong> Start building credit immediately with secured cards</li>
+                        <li style="margin-bottom: 10px;"><strong>Tax Filing:</strong> File as resident alien (Form 1040) - may be eligible for tax credits</li>
+                    </ul>
+                `,
+                quickTips: `
+                    <ul style="text-align: left; margin-left: 20px;">
+                        <li style="margin-bottom: 10px;">Work with your resettlement agency for guidance</li>
+                        <li style="margin-bottom: 10px;">Look for banks with multilingual services</li>
+                        <li style="margin-bottom: 10px;">Take advantage of free financial literacy programs</li>
+                        <li style="margin-bottom: 10px;">Prioritize building emergency savings</li>
+                    </ul>
+                `
+            }
+        };
+
+        // Enhanced selectVisa function with better feedback (HCI: Visibility & Feedback)
+        // Make it globally accessible
+        window.selectVisa = function(visaType) {
+            console.log('Selecting visa:', visaType); // Debug
+            localStorage.setItem('selectedVisa', visaType);
+            
+            // Remove selection from all cards
+            document.querySelectorAll('.visa-card').forEach(card => {
+                card.classList.remove('selected');
+                card.style.transform = 'scale(1)';
+            });
+            
+            // Add selection to clicked card with animation
+            const selectedCard = document.querySelector(`[data-visa="${visaType}"]`);
+            if (selectedCard) {
+                selectedCard.classList.add('selected');
+                selectedCard.style.transform = 'scale(1.05)';
+                
+                // Add checkmark feedback
+                setTimeout(() => {
+                    selectedCard.style.transform = 'scale(1)';
+                }, 200);
+            }
+            
+            // Show visa information (Progressive Disclosure)
+            loadVisaContent();
+        };
+
+        // Load visa content
+        function loadVisaContent() {
+            const selectedVisa = localStorage.getItem('selectedVisa');
+            if (!selectedVisa) return;
+            
+            const content = visaContent[selectedVisa];
+            if (!content) return;
+            
+            // Update heading
+            document.getElementById('visa-title').textContent = content.title;
+            document.getElementById('visa-subtitle').textContent = content.subtitle;
+            
+            // Update content sections
+            document.getElementById('financial-rules').innerHTML = content.financialRules;
+            document.getElementById('quick-tips').innerHTML = content.quickTips;
+            
+            // Show information section with smooth transition
+            const infoSection = document.getElementById('visa-info-section');
+            
+            infoSection.style.display = 'block';
+            
+            // Scroll to information
+            infoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Clear selection (if needed in future)
+        function clearSelection() {
+            localStorage.removeItem('selectedVisa');
+            document.querySelectorAll('.visa-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.getElementById('visa-info-section').style.display = 'none';
+        }
+
+        // Keyboard accessibility (HCI: Accessibility)
+        document.querySelectorAll('.visa-card').forEach(card => {
+            card.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const visaType = this.getAttribute('data-visa');
+                    selectVisa(visaType);
+                }
+            });
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click event listeners to all visa cards
+            document.querySelectorAll('.visa-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const visaType = this.getAttribute('data-visa');
+                    console.log('Card clicked:', visaType); // Debug
+                    window.selectVisa(visaType);
+                });
+            });
+            
+            // Check for previously selected visa
+            const selectedVisa = localStorage.getItem('selectedVisa');
+            if (selectedVisa) {
+                document.querySelector(`[data-visa="${selectedVisa}"]`)?.classList.add('selected');
+                loadVisaContent();
+            }
+        });
+    </script>
+
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .visa-card.selected {
+            border-color: var(--accent-blue) !important;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-green) 100%) !important;
+            color: white !important;
+            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4) !important;
+            transform: scale(1.02) !important;
+        }
+        
+        .visa-card.selected h3,
+        .visa-card.selected p {
+            color: white !important;
+        }
+        
+        .visa-card {
+            position: relative;
+        }
+        
+        .visa-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: var(--accent-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit & Banking - FinPath</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="container" style="max-width: 1000px; padding: 20px;">
+        <!-- Header -->
+        <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+            <h1 style="color: var(--accent-green); margin: 0; font-size: 1.8em;">💳 Credit & Banking</h1>
+            <p style="color: var(--text-medium); margin: 5px 0 0 0;">Credit score calculator and banking information</p>
+        </div>
+
+        <!-- Credit Score Calculator -->
+        <div class="card" style="border: 2px solid var(--border-color); border-radius: 12px; padding: 20px; background-color: var(--white); margin-bottom: 25px;">
+            <h2 style="color: #E91E63; margin: 0 0 15px 0; font-size: 1.4em;">📊 Credit Score Calculator</h2>
+            <p style="color: var(--text-medium); margin-bottom: 20px;">Use sliders to see how credit affects your score</p>
+            
+            <!-- Credit Score Display -->
+            <div id="credit-score-display" style="text-align: center; padding: 25px; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--soft-green) 100%); border-radius: 12px; margin-bottom: 25px;">
+                <div style="font-size: 0.9em; color: var(--text-medium); margin-bottom: 10px;">Estimated Credit Score</div>
+                <div id="score-value" style="font-size: 4em; font-weight: 700; color: var(--accent-blue); margin: 10px 0; transition: all 0.3s ease;">650</div>
+                <div id="score-rating" style="font-size: 1.3em; font-weight: 600; color: var(--text-dark); margin-top: 5px;">Good</div>
+            </div>
+
+            <!-- Credit Limit Slider -->
+            <div style="margin-bottom: 25px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <label style="font-weight: 600; font-size: 1em; color: var(--text-dark);">Credit Limit</label>
+                    <span id="limit-value" style="font-size: 1.3em; font-weight: 700; color: var(--accent-blue);">$5,000</span>
+                </div>
+                <input type="range" id="credit-limit-slider" min="500" max="50000" value="5000" step="500" oninput="updateCreditScore()" style="width: 100%; height: 8px; border-radius: 5px; background: var(--border-color); outline: none; cursor: pointer;">
+            </div>
+
+            <!-- Credit Utilization Slider -->
+            <div style="margin-bottom: 25px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <label style="font-weight: 600; font-size: 1em; color: var(--text-dark);">Credit Utilization (%)</label>
+                    <span id="utilization-value" style="font-size: 1.3em; font-weight: 700; color: var(--accent-green);">30%</span>
+                </div>
+                <input type="range" id="utilization-slider" min="0" max="100" value="30" step="1" oninput="updateCreditScore()" style="width: 100%; height: 8px; border-radius: 5px; background: var(--border-color); outline: none; cursor: pointer;">
+            </div>
+
+            <!-- Balance Display -->
+            <div style="padding: 20px; background-color: var(--soft-green); border-radius: 10px; margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <div style="font-size: 0.9em; color: var(--text-medium);">Current Balance</div>
+                        <div id="balance-display" style="font-size: 1.5em; font-weight: 700; color: var(--text-dark);">$1,500</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 0.9em; color: var(--text-medium);">Available Credit</div>
+                        <div id="available-credit" style="font-size: 1.5em; font-weight: 700; color: var(--accent-green);">$3,500</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Score Breakdown -->
+            <div id="score-breakdown" style="padding: 20px; background-color: var(--primary-blue); border-radius: 10px;">
+                <h4 style="color: var(--accent-blue); margin-bottom: 15px; font-size: 1.1em;">Score Breakdown</h4>
+                <div id="breakdown-content"></div>
+            </div>
+        </div>
+
+        <!-- Safe Spending Limit Calculator -->
+        <div class="card" style="border: 2px solid var(--border-color); border-radius: 12px; padding: 20px; background-color: var(--white); margin-bottom: 25px;">
+            <h2 style="color: var(--accent-green); margin: 0 0 15px 0; font-size: 1.4em;">💳 Safe Spending Limit Calculator</h2>
+            <p style="color: var(--text-medium); margin-bottom: 15px;">Calculate safe credit card spending limit</p>
+            <div style="max-width: 500px;">
+                <div style="margin-bottom: 15px;">
+                    <label style="font-weight: 600; margin-bottom: 8px; display: block;">Credit Card Limit ($)</label>
+                    <input type="number" id="card-limit" placeholder="Enter credit limit" oninput="calculateSafeSpending()" style="width: 100%; padding: 10px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 16px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-weight: 600; margin-bottom: 8px; display: block;">Current Balance ($)</label>
+                    <input type="number" id="current-balance" placeholder="Enter current balance" oninput="calculateSafeSpending()" style="width: 100%; padding: 10px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 16px;">
+                </div>
+                <div id="safe-spending-result" style="display: none; margin-top: 20px;"></div>
+            </div>
+        </div>
+
+        <!-- Monthly Payment Calculator -->
+        <div class="card" style="border: 2px solid var(--border-color); border-radius: 12px; padding: 20px; background-color: var(--white); margin-bottom: 25px;">
+            <h2 style="color: #FF9800; margin: 0 0 15px 0; font-size: 1.4em;">💰 Monthly Payment Calculator</h2>
+            <p style="color: var(--text-medium); margin-bottom: 15px;">Calculate payment to avoid interest</p>
+            <div style="max-width: 500px;">
+                <div style="margin-bottom: 15px;">
+                    <label style="font-weight: 600; margin-bottom: 8px; display: block;">Credit Card Balance ($)</label>
+                    <input type="number" id="payment-balance" placeholder="Enter balance" oninput="calculateMonthlyPayment()" style="width: 100%; padding: 10px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 16px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-weight: 600; margin-bottom: 8px; display: block;">Annual Interest Rate (%)</label>
+                    <input type="number" id="interest-rate" placeholder="e.g., 18.99" step="0.01" oninput="calculateMonthlyPayment()" style="width: 100%; padding: 10px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 16px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-weight: 600; margin-bottom: 8px; display: block;">Days in Billing Cycle</label>
+                    <input type="number" id="billing-days" value="30" oninput="calculateMonthlyPayment()" style="width: 100%; padding: 10px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 16px;">
+                </div>
+                <div id="monthly-payment-result" style="display: none; margin-top: 20px;"></div>
+            </div>
+        </div>
+
+        <!-- Bank Options Comparison -->
+        <div class="card" style="border: 2px solid var(--border-color); border-radius: 12px; padding: 20px; background-color: var(--white); margin-bottom: 25px;">
+            <h2 style="color: var(--accent-blue); margin: 0 0 15px 0; font-size: 1.4em;">🏦 Compare Bank Options</h2>
+            <p style="color: var(--text-medium); margin-bottom: 15px;">Compare eligible bank options for your visa type</p>
+            <div id="bank-comparison"></div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons" style="margin-top: 20px; text-align: center;">
+            <a href="dashboard.html" class="btn" style="padding: 10px 20px; font-size: 0.9em;">← Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script>
+        function updateCreditScore() {
+            const limitSlider = document.getElementById('credit-limit-slider');
+            const utilizationSlider = document.getElementById('utilization-slider');
+            
+            const creditLimit = parseInt(limitSlider.value);
+            const utilizationPercent = parseInt(utilizationSlider.value);
+            
+            document.getElementById('limit-value').textContent = '$' + creditLimit.toLocaleString();
+            document.getElementById('utilization-value').textContent = utilizationPercent + '%';
+            
+            const currentBalance = Math.round((creditLimit * utilizationPercent) / 100);
+            const availableCredit = creditLimit - currentBalance;
+            
+            document.getElementById('balance-display').textContent = '$' + currentBalance.toLocaleString();
+            document.getElementById('available-credit').textContent = '$' + availableCredit.toLocaleString();
+            
+            let score = 650;
+            
+            if (utilizationPercent === 0) {
+                score += 30;
+            } else if (utilizationPercent <= 10) {
+                score += 50;
+            } else if (utilizationPercent <= 20) {
+                score += 40;
+            } else if (utilizationPercent <= 30) {
+                score += 20;
+            } else if (utilizationPercent <= 50) {
+                score -= 20;
+            } else if (utilizationPercent <= 70) {
+                score -= 50;
+            } else {
+                score -= 80;
+            }
+            
+            if (creditLimit >= 20000) {
+                score += 30;
+            } else if (creditLimit >= 10000) {
+                score += 15;
+            } else if (creditLimit >= 5000) {
+                score += 5;
+            } else {
+                score -= 10;
+            }
+            
+            score = Math.max(300, Math.min(850, score));
+            
+            const scoreElement = document.getElementById('score-value');
+            // Remove animation - just set the value directly
+            scoreElement.textContent = score;
+            
+            let rating = '';
+            let ratingColor = '';
+            if (score >= 750) {
+                rating = 'Excellent';
+                ratingColor = '#4CAF50';
+            } else if (score >= 670) {
+                rating = 'Good';
+                ratingColor = '#2196F3';
+            } else if (score >= 580) {
+                rating = 'Fair';
+                ratingColor = '#FF9800';
+            } else {
+                rating = 'Needs Improvement';
+                ratingColor = '#F44336';
+            }
+            
+            document.getElementById('score-rating').textContent = rating;
+            document.getElementById('score-rating').style.color = ratingColor;
+            scoreElement.style.color = ratingColor;
+            
+            const breakdownElement = document.getElementById('breakdown-content');
+            if (breakdownElement) {
+                var utilColor = utilizationPercent <= 30 ? 'var(--accent-green)' : '#F44336';
+                var utilText = utilizationPercent <= 30 ? 'Good' : 'High';
+                var limitColor = creditLimit >= 10000 ? 'var(--accent-green)' : '#FF9800';
+                var limitText = creditLimit >= 20000 ? 'High' : (creditLimit >= 10000 ? 'Good' : 'Average');
+                
+                breakdownElement.innerHTML = 
+                    '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">' +
+                        '<div style="padding: 15px; background-color: var(--white); border-radius: 8px;">' +
+                            '<div style="font-size: 0.9em; color: var(--text-medium);">Utilization</div>' +
+                            '<div style="font-size: 1.2em; font-weight: 700; color: ' + utilColor + ';">' + utilText + '</div>' +
+                        '</div>' +
+                        '<div style="padding: 15px; background-color: var(--white); border-radius: 8px;">' +
+                            '<div style="font-size: 0.9em; color: var(--text-medium);">Credit Limit</div>' +
+                            '<div style="font-size: 1.2em; font-weight: 700; color: ' + limitColor + ';">' + limitText + '</div>' +
+                        '</div>' +
+                    '</div>';
+            }
+        }
+        
+        function animateValue(element, start, end, duration) {
+            const range = end - start;
+            const increment = range / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(function() {
+                current += increment;
+                if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                    current = end;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.round(current);
+            }, 16);
+        }
+
+        function calculateSafeSpending() {
+            const limit = parseFloat(document.getElementById('card-limit').value);
+            const balance = parseFloat(document.getElementById('current-balance').value) || 0;
+            
+            if (!limit || limit <= 0) {
+                document.getElementById('safe-spending-result').style.display = 'none';
+                return;
+            }
+            
+            const safeUtilization = 0.30;
+            const maxSafeBalance = limit * safeUtilization;
+            const safeSpending = maxSafeBalance - balance;
+            const currentUtilization = (balance / limit * 100).toFixed(1);
+            
+            const resultDiv = document.getElementById('safe-spending-result');
+            resultDiv.style.display = 'block';
+            
+            let status = '';
+            let statusColor = '';
+            if (currentUtilization < 30) {
+                status = '✓ Good';
+                statusColor = 'var(--accent-green)';
+            } else if (currentUtilization < 50) {
+                status = '⚠ Getting high';
+                statusColor = '#FF9800';
+            } else {
+                status = '✗ Too high';
+                statusColor = '#F44336';
+            }
+            
+            resultDiv.innerHTML = 
+                '<div style="padding: 15px; background-color: var(--soft-green); border-radius: 8px; border-left: 4px solid ' + statusColor + ';">' +
+                    '<div style="margin-bottom: 8px;"><strong>Current Utilization:</strong> <span style="color: ' + statusColor + '; font-weight: 700;">' + currentUtilization + '%</span> ' + status + '</div>' +
+                    '<div style="margin-bottom: 8px;"><strong>Safe Spending Limit:</strong> <span style="color: var(--accent-blue); font-weight: 700;">$' + Math.max(0, safeSpending).toFixed(2) + '</span></div>' +
+                    '<div><strong>Max Safe Balance:</strong> $' + maxSafeBalance.toFixed(2) + '</div>' +
+                '</div>';
+        }
+
+        function calculateMonthlyPayment() {
+            const balance = parseFloat(document.getElementById('payment-balance').value);
+            const rate = parseFloat(document.getElementById('interest-rate').value);
+            const days = parseFloat(document.getElementById('billing-days').value) || 30;
+            
+            if (!balance || balance <= 0) {
+                document.getElementById('monthly-payment-result').style.display = 'none';
+                return;
+            }
+            
+            const dailyRate = rate ? (rate / 100) / 365 : 0;
+            const interest = balance * dailyRate * days;
+            const totalToPay = balance + interest;
+            const minPayment = balance * 0.02;
+            
+            const resultDiv = document.getElementById('monthly-payment-result');
+            resultDiv.style.display = 'block';
+            
+            if (rate > 0) {
+                resultDiv.innerHTML = 
+                    '<div style="padding: 15px; background-color: #FFF3E0; border-radius: 8px; border-left: 4px solid #FF9800;">' +
+                        '<div style="margin-bottom: 8px;"><strong>To Avoid Interest:</strong> <span style="color: var(--accent-green); font-weight: 700;">$' + balance.toFixed(2) + '</span></div>' +
+                        '<div style="margin-bottom: 8px;"><strong>If Carrying Balance:</strong> Interest: <span style="color: #F44336; font-weight: 700;">$' + interest.toFixed(2) + '</span></div>' +
+                        '<div style="margin-bottom: 8px;"><strong>Total with Interest:</strong> $' + totalToPay.toFixed(2) + '</div>' +
+                        '<div><strong>Minimum Payment:</strong> $' + minPayment.toFixed(2) + ' <span style="color: #F44336;">(not recommended)</span></div>' +
+                    '</div>';
+            } else {
+                resultDiv.innerHTML = 
+                    '<div style="padding: 15px; background-color: var(--soft-green); border-radius: 8px; border-left: 4px solid var(--accent-green);">' +
+                        '<div><strong>To Avoid Interest:</strong> <span style="color: var(--accent-green); font-weight: 700;">$' + balance.toFixed(2) + '</span></div>' +
+                    '</div>';
+            }
+        }
+
+        function getSelectedVisa() {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            return userData?.visaType || localStorage.getItem('selectedVisa') || 'F-1';
+        }
+
+        const bankOptions = {
+            'F-1': [
+                { name: 'Chase Student Checking', features: ['No monthly fee for students', 'No minimum balance', 'Mobile banking', 'Requires: Passport, Visa, I-20'], eligibility: 'Excellent for students', icon: '🏦' },
+                { name: 'Bank of America Advantage Banking', features: ['Student account option', 'No monthly fee with student status', 'Online banking', 'Requires: SSN or ITIN'], eligibility: 'Good option', icon: '🏛️' },
+                { name: 'Capital One 360', features: ['No fees', 'No minimum balance', 'Online-only', 'Requires: SSN or ITIN'], eligibility: 'Best for online banking', icon: '💻' }
+            ],
+            'H-1B': [
+                { name: 'Chase Total Checking', features: ['No monthly fee with direct deposit', 'Free checks', 'Mobile banking', 'Requires: SSN, Employment letter'], eligibility: 'Excellent option', icon: '🏦' },
+                { name: 'Ally Bank', features: ['No monthly fees', 'High interest rates', 'Online-only', 'Requires: SSN'], eligibility: 'Best for savings', icon: '💰' },
+                { name: 'Charles Schwab', features: ['No fees', 'ATM fee reimbursements', 'Investment options', 'Requires: SSN'], eligibility: 'Best for investing', icon: '📈' }
+            ],
+            'Refugee': [
+                { name: 'Local Credit Union', features: ['Lower fees', 'Community-focused', 'Multilingual support', 'Requires: SSN, Proof of address'], eligibility: 'Best for local support', icon: '🤝' },
+                { name: 'Chase Total Checking', features: ['No monthly fee with direct deposit', 'Wide branch network', 'Requires: SSN'], eligibility: 'Good option', icon: '🏦' },
+                { name: 'OneUnited Bank', features: ['Community-focused', 'Financial education', 'Requires: SSN'], eligibility: 'Best for financial literacy', icon: '📚' }
+            ]
+        };
+
+        function loadBankOptions() {
+            const visaType = getSelectedVisa();
+            const banks = bankOptions[visaType] || bankOptions['F-1'];
+            const container = document.getElementById('bank-comparison');
+            
+            if (!container) return;
+            
+            container.innerHTML = '';
+            banks.forEach(function(bank) {
+                const bankBox = document.createElement('div');
+                bankBox.style.cssText = 'padding: 15px; margin-bottom: 15px; background: linear-gradient(135deg, var(--primary-blue) 0%, #E1F5FE 100%); border-radius: 10px; border-left: 4px solid var(--accent-blue);';
+                
+                const featuresList = bank.features.map(f => '<li style="margin-bottom: 6px; color: var(--text-dark);">' + f + '</li>').join('');
+                
+                bankBox.innerHTML = 
+                    '<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">' +
+                        '<span style="font-size: 2em;">' + bank.icon + '</span>' +
+                        '<h4 style="color: var(--accent-blue); margin: 0;">' + bank.name + '</h4>' +
+                    '</div>' +
+                    '<p style="font-weight: 600; color: var(--accent-green); margin-bottom: 12px; padding: 5px 10px; background-color: var(--white); border-radius: 5px; display: inline-block;">' + bank.eligibility + '</p>' +
+                    '<ul style="margin-left: 20px; margin-top: 10px;">' + featuresList + '</ul>';
+                
+                container.appendChild(bankBox);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCreditScore();
+            loadBankOptions();
+        });
+    </script>
+</body>
+</html>
+

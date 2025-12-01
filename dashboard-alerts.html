@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Alerts - FinPath</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="container" style="max-width: 1000px; padding: 20px;">
+        <!-- Header -->
+        <div style="background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+            <h1 style="color: #C62828; margin: 0; font-size: 1.8em;">🔔 All Alerts</h1>
+            <p style="color: var(--text-medium); margin: 5px 0 0 0;">View all alerts and reminders</p>
+        </div>
+
+        <!-- Critical Alerts -->
+        <div id="critical-alerts-container" style="margin-bottom: 25px;"></div>
+
+        <!-- Regular Alerts -->
+        <div id="regular-alerts-container"></div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons" style="margin-top: 20px; text-align: center;">
+            <a href="dashboard.html" class="btn" style="padding: 10px 20px; font-size: 0.9em;">← Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script>
+        function getSelectedVisa() {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            return userData?.visaType || localStorage.getItem('selectedVisa') || 'F-1';
+        }
+
+        const alertsData = {
+            'F-1': {
+                critical: [
+                    { title: 'Tax Filing Deadline Approaching', message: 'File Form 1040NR by April 15th if you have U.S. income', date: 'Due in 45 days', icon: '🚨', action: 'File taxes now' },
+                    { title: 'I-20 Expiring Soon', message: 'Your I-20 may need renewal. Check expiration date and renew if needed', date: 'Check immediately', icon: '⚠️', action: 'Check I-20 status' }
+                ],
+                regular: [
+                    { title: 'Credit Report Check Due', message: 'Review your credit report annually at annualcreditreport.com', date: 'Due this month', icon: '📊', action: 'Check credit report' },
+                    { title: 'Bank Account Review', message: 'Review your bank account fees and consider switching if needed', date: 'Monthly reminder', icon: '🏦', action: 'Review accounts' },
+                    { title: 'Budget Review', message: 'Review your monthly budget and adjust if needed', date: 'Monthly reminder', icon: '💰', action: 'Update budget' }
+                ]
+            },
+            'H-1B': {
+                critical: [
+                    { title: 'Tax Filing Deadline Approaching', message: 'File Form 1040 by April 15th. Gather all W-2 and 1099 forms', date: 'Due in 45 days', icon: '🚨', action: 'File taxes now' },
+                    { title: 'H-1B Extension Needed', message: 'Check if your H-1B needs extension before expiration', date: 'Check immediately', icon: '⚠️', action: 'Check visa status' },
+                    { title: '401(k) Contribution Deadline', message: 'Maximize your 401(k) contributions before December 31st', date: 'Due in 30 days', icon: '💰', action: 'Review 401(k)' }
+                ],
+                regular: [
+                    { title: 'Credit Report Check Due', message: 'Review your credit report annually', date: 'Due this month', icon: '📊', action: 'Check credit report' },
+                    { title: 'Emergency Fund Review', message: 'Ensure you have 6-12 months of expenses saved', date: 'Monthly reminder', icon: '💵', action: 'Review savings' },
+                    { title: 'Investment Portfolio Review', message: 'Review your investment portfolio and rebalance if needed', date: 'Quarterly reminder', icon: '📈', action: 'Review investments' }
+                ]
+            },
+            'Refugee': {
+                critical: [
+                    { title: 'SSN Application Urgent', message: 'Apply for Social Security Number immediately if you haven\'t already', date: 'Urgent', icon: '🚨', action: 'Apply for SSN' },
+                    { title: 'Tax Filing Deadline Approaching', message: 'File Form 1040 by April 15th. You may be eligible for tax credits', date: 'Due in 45 days', icon: '⚠️', action: 'File taxes now' },
+                    { title: 'Resettlement Benefits Expiring', message: 'Check if any resettlement benefits are expiring soon', date: 'Check immediately', icon: '🤝', action: 'Check benefits' }
+                ],
+                regular: [
+                    { title: 'Credit Building Progress', message: 'Continue building credit with secured cards or credit-builder loans', date: 'Monthly reminder', icon: '📊', action: 'Review credit' },
+                    { title: 'Financial Literacy Program', message: 'Consider enrolling in free financial literacy programs', date: 'Ongoing', icon: '📚', action: 'Find programs' },
+                    { title: 'Bank Account Review', message: 'Review your bank account and consider options with lower fees', date: 'Monthly reminder', icon: '🏦', action: 'Review accounts' }
+                ]
+            }
+        };
+
+        function loadAlerts() {
+            const visaType = getSelectedVisa();
+            const alerts = alertsData[visaType] || alertsData['F-1'];
+            const criticalContainer = document.getElementById('critical-alerts-container');
+            const regularContainer = document.getElementById('regular-alerts-container');
+            
+            // Load critical alerts
+            if (alerts.critical && alerts.critical.length > 0) {
+                criticalContainer.innerHTML = '<h3 style="color: #F44336; margin-bottom: 15px; font-size: 1.3em;">🚨 Critical Alerts</h3>';
+                
+                alerts.critical.forEach(function(alert) {
+                    const alertBox = document.createElement('div');
+                    alertBox.style.cssText = 'padding: 18px; margin-bottom: 12px; background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%); border: 2px solid #F44336; border-left: 5px solid #F44336; border-radius: 10px;';
+                    alertBox.innerHTML = 
+                        '<div style="display: flex; align-items: start; gap: 12px; margin-bottom: 10px;">' +
+                            '<span style="font-size: 1.8em;">' + alert.icon + '</span>' +
+                            '<div style="flex: 1;">' +
+                                '<h4 style="color: #C62828; margin: 0 0 8px 0; font-size: 1.1em; font-weight: 700;">' + alert.title + '</h4>' +
+                                '<p style="color: var(--text-dark); margin: 0 0 10px 0; font-size: 0.95em; line-height: 1.5;">' + alert.message + '</p>' +
+                                '<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">' +
+                                    '<span style="padding: 6px 12px; background-color: #F44336; color: white; border-radius: 12px; font-size: 0.85em; font-weight: 600;">' + alert.date + '</span>' +
+                                    '<button style="padding: 8px 16px; background-color: #F44336; color: white; border: none; border-radius: 6px; font-size: 0.9em; font-weight: 600; cursor: pointer;" onmouseover="this.style.backgroundColor=\'#D32F2F\'" onmouseout="this.style.backgroundColor=\'#F44336\'">' + alert.action + '</button>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>';
+                    criticalContainer.appendChild(alertBox);
+                });
+            }
+            
+            // Load regular alerts
+            if (alerts.regular && alerts.regular.length > 0) {
+                regularContainer.innerHTML = '<h3 style="color: #FF9800; margin-bottom: 15px; margin-top: 20px; font-size: 1.3em;">🔔 Alerts & Reminders</h3>';
+                
+                alerts.regular.forEach(function(alert) {
+                    const alertBox = document.createElement('div');
+                    alertBox.style.cssText = 'padding: 15px; margin-bottom: 12px; background-color: var(--white); border: 2px solid #FF9800; border-left: 4px solid #FF9800; border-radius: 10px; box-shadow: 0 2px 6px var(--shadow);';
+                    alertBox.innerHTML = 
+                        '<div style="display: flex; align-items: start; gap: 12px;">' +
+                            '<span style="font-size: 1.5em;">' + alert.icon + '</span>' +
+                            '<div style="flex: 1;">' +
+                                '<h4 style="color: var(--text-dark); margin: 0 0 6px 0; font-size: 1em; font-weight: 700;">' + alert.title + '</h4>' +
+                                '<p style="color: var(--text-medium); margin: 0 0 8px 0; font-size: 0.9em; line-height: 1.5;">' + alert.message + '</p>' +
+                                '<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">' +
+                                    '<span style="padding: 5px 10px; background-color: #FFF3E0; color: #F57C00; border-radius: 10px; font-size: 0.8em; font-weight: 600;">' + alert.date + '</span>' +
+                                    '<button style="padding: 6px 12px; background-color: #FF9800; color: white; border: none; border-radius: 5px; font-size: 0.85em; font-weight: 600; cursor: pointer;" onmouseover="this.style.backgroundColor=\'#F57C00\'" onmouseout="this.style.backgroundColor=\'#FF9800\'">' + alert.action + '</button>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>';
+                    regularContainer.appendChild(alertBox);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAlerts();
+        });
+    </script>
+</body>
+</html>
+

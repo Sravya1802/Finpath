@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Transfer - FinPath</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="container" style="max-width: 1000px; padding: 20px;">
+        <!-- Header -->
+        <div style="background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+            <h1 style="color: #9C27B0; margin: 0; font-size: 1.8em;">💸 Money Transfer</h1>
+            <p style="color: var(--text-medium); margin: 5px 0 0 0;">Compare international transfer services</p>
+        </div>
+
+        <!-- Money Transfer Comparison -->
+        <div class="card" style="border: 2px solid var(--border-color); border-radius: 12px; padding: 20px; background-color: var(--white); margin-bottom: 25px;">
+            <h2 style="color: #9C27B0; margin: 0 0 15px 0; font-size: 1.4em;">💰 Transfer Comparison</h2>
+            <p style="color: var(--text-medium); margin-bottom: 20px;">Compare international transfer services with real costs</p>
+            <div style="margin-bottom: 20px; max-width: 400px;">
+                <label style="font-weight: 600; margin-bottom: 8px; display: block;">Amount to Transfer ($)</label>
+                <input type="number" id="transfer-amount" placeholder="Enter amount" value="1000" oninput="compareMoneyTransfers()" style="width: 100%; padding: 12px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 16px;">
+            </div>
+            <div id="transfer-comparison"></div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="card" style="border: 2px solid var(--border-color); border-radius: 12px; padding: 20px; background-color: var(--white); margin-bottom: 25px;">
+            <h2 style="color: #9C27B0; margin: 0 0 15px 0; font-size: 1.4em;">💡 Transfer Tips</h2>
+            <ul style="margin-left: 20px; color: var(--text-dark); line-height: 1.8;">
+                <li style="margin-bottom: 10px;">Always check the real exchange rate, not just the fee</li>
+                <li style="margin-bottom: 10px;">Some services hide costs in poor exchange rates</li>
+                <li style="margin-bottom: 10px;">For large transfers, consider bank wire transfers despite higher fees</li>
+                <li style="margin-bottom: 10px;">For regular small transfers, use services like Wise or Remitly</li>
+                <li style="margin-bottom: 10px;">Be aware of tax implications for large transfers (over $15,000)</li>
+            </ul>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons" style="margin-top: 20px; text-align: center;">
+            <a href="dashboard.html" class="btn" style="padding: 10px 20px; font-size: 0.9em;">← Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script>
+        const transferServices = [
+            { name: 'Wise (formerly TransferWise)', fee: 0.41, rate: 0.998, description: 'Best for: Low fees, transparent rates, fast transfers' },
+            { name: 'Remitly', fee: 0.99, rate: 0.995, description: 'Best for: First-time transfers, promotional rates' },
+            { name: 'Western Union', fee: 5.00, rate: 0.97, description: 'Best for: Cash pickup locations, but higher fees' },
+            { name: 'Bank Wire Transfer', fee: 25.00, rate: 0.98, description: 'Best for: Large amounts, but expensive for small transfers' }
+        ];
+
+        function compareMoneyTransfers() {
+            const amount = parseFloat(document.getElementById('transfer-amount').value) || 1000;
+            const container = document.getElementById('transfer-comparison');
+            
+            container.innerHTML = '';
+            
+            const comparisons = transferServices.map(function(service) {
+                const totalFee = (amount * (service.fee / 100)) + (amount * (1 - service.rate));
+                const received = amount - totalFee;
+                const totalCost = totalFee;
+                
+                return {
+                    service: service,
+                    totalFee: totalFee,
+                    received: received,
+                    totalCost: totalCost
+                };
+            }).sort(function(a, b) {
+                return a.totalCost - b.totalCost;
+            });
+            
+            comparisons.forEach(function(comp, index) {
+                const isBest = index === 0;
+                const box = document.createElement('div');
+                box.style.cssText = 'padding: 15px; margin-bottom: 15px; background-color: ' + (isBest ? '#E8F5E9' : 'var(--white)') + '; border-radius: 10px; border: 2px solid ' + (isBest ? '#4CAF50' : 'var(--border-color)') + '; border-left: 5px solid ' + (isBest ? '#4CAF50' : 'var(--border-color)') + ';';
+                
+                box.innerHTML = 
+                    '<div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">' +
+                        '<div style="flex: 1;">' +
+                            '<h4 style="color: var(--text-dark); margin: 0 0 5px 0; font-size: 1.1em; font-weight: 700;">' + comp.service.name + (isBest ? ' ⭐ Best Value' : '') + '</h4>' +
+                            '<p style="color: var(--text-medium); margin: 0; font-size: 0.9em;">' + comp.service.description + '</p>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px;">' +
+                        '<div style="padding: 10px; background-color: ' + (isBest ? 'var(--white)' : '#F5F5F5') + '; border-radius: 6px; text-align: center;">' +
+                            '<div style="font-size: 0.8em; color: var(--text-medium); margin-bottom: 5px;">Total Cost</div>' +
+                            '<div style="font-weight: 700; color: #F44336; font-size: 1.1em;">$' + comp.totalCost.toFixed(2) + '</div>' +
+                        '</div>' +
+                        '<div style="padding: 10px; background-color: ' + (isBest ? 'var(--white)' : '#F5F5F5') + '; border-radius: 6px; text-align: center;">' +
+                            '<div style="font-size: 0.8em; color: var(--text-medium); margin-bottom: 5px;">You Send</div>' +
+                            '<div style="font-weight: 700; color: var(--text-dark); font-size: 1.1em;">$' + amount.toFixed(2) + '</div>' +
+                        '</div>' +
+                        '<div style="padding: 10px; background-color: ' + (isBest ? 'var(--white)' : '#F5F5F5') + '; border-radius: 6px; text-align: center;">' +
+                            '<div style="font-size: 0.8em; color: var(--text-medium); margin-bottom: 5px;">Recipient Gets</div>' +
+                            '<div style="font-weight: 700; color: #4CAF50; font-size: 1.1em;">$' + comp.received.toFixed(2) + '</div>' +
+                        '</div>' +
+                    '</div>';
+                
+                container.appendChild(box);
+            });
+            
+            const warningBox = document.createElement('div');
+            warningBox.style.cssText = 'padding: 15px; margin-top: 15px; background-color: #FFF3E0; border-radius: 8px; border-left: 4px solid #FF9800;';
+            warningBox.innerHTML = '<strong style="color: #F57C00; font-size: 0.9em;">⚠️ Remember:</strong> <span style="color: var(--text-dark); font-size: 0.9em;">Always check the real exchange rate, not just the fee. Some services hide costs in poor exchange rates.</span>';
+            container.appendChild(warningBox);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            compareMoneyTransfers();
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa Dashboard - FinPath</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- 
+        PURPOSE: Visa Dashboard - Shows simplified visa-specific financial information
+        EXPECTED ACTION: User reviews key information relevant to their visa type and clicks "Continue to Sign Up"
+        INTERACTIVITY: 
+        - Content dynamically displays based on visa selection from visa selection screen
+        - "Continue to Sign Up" button navigates to signup page
+        - Chatbot available for questions
+    -->
+    
+    <div class="container">
+        <!-- Visa Type Heading -->
+        <div id="visa-heading" style="text-align: center; padding: 20px; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--soft-green) 100%); border-radius: 10px; margin-bottom: 30px;">
+            <h1 id="visa-title">Your Visa Information</h1>
+            <p id="visa-subtitle">Financial guidance tailored to your situation</p>
+        </div>
+
+        <!-- Financial Rules Section -->
+        <div class="content-section">
+            <h3>Key Financial Information</h3>
+            <div id="financial-rules">
+                <!-- Content will be dynamically inserted based on visa type -->
+            </div>
+        </div>
+
+        <!-- Quick Tips Section -->
+        <div class="content-section" style="background-color: var(--soft-green);">
+            <h3>Quick Tips</h3>
+            <div id="quick-tips">
+                <!-- Content will be dynamically inserted based on visa type -->
+            </div>
+        </div>
+
+        <!-- Navigation Button -->
+        <div class="nav-buttons">
+            <a href="visa-selection.html" class="btn">← Back</a>
+            <a href="signup.html" class="btn btn-secondary">Continue to Sign Up →</a>
+        </div>
+    </div>
+
+    <!-- Chatbot Button -->
+    <button class="chatbot-button" id="chatbot-button" title="Chat with FinPath Assistant">💬</button>
+
+    <!-- Chatbot Panel -->
+    <div class="chatbot-panel" id="chatbot-panel">
+        <div class="chatbot-header">
+            <span>FinPath Assistant</span>
+            <button class="chatbot-close" id="chatbot-close">×</button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages"></div>
+        <div class="chatbot-input-container">
+            <input type="text" class="chatbot-input" id="chatbot-input" placeholder="Ask a question...">
+            <button class="chatbot-send" id="chatbot-send">Send</button>
+        </div>
+    </div>
+
+    <script src="scripts/navigation.js"></script>
+    <script src="scripts/chatbot.js"></script>
+    <script>
+        // Visa-specific content data (simplified for prototype)
+        const visaContent = {
+            'F-1': {
+                title: 'F-1 Student Visa',
+                subtitle: 'Financial guidance for international students',
+                financialRules: `
+                    <ul>
+                        <li><strong>SSN:</strong> Required for employment. Apply with passport, visa, I-94, and employment authorization</li>
+                        <li><strong>Banking:</strong> Many banks offer student accounts with no monthly fees</li>
+                        <li><strong>Credit Building:</strong> Start with secured credit cards or become an authorized user</li>
+                        <li><strong>Tax Filing:</strong> File as non-resident alien (Form 1040NR) if you have U.S. income</li>
+                    </ul>
+                `,
+                quickTips: `
+                    <ul>
+                        <li>Open a bank account early to establish financial history</li>
+                        <li>Start building credit as soon as you get an SSN</li>
+                        <li>Keep track of expenses and create a budget</li>
+                        <li>File taxes by April 15th if you have income</li>
+                    </ul>
+                `
+            },
+            'H-1B': {
+                title: 'H-1B Worker Visa',
+                subtitle: 'Financial guidance for skilled workers',
+                financialRules: `
+                    <ul>
+                        <li><strong>SSN:</strong> Required and typically obtained during visa processing</li>
+                        <li><strong>Banking:</strong> Full access to banking services - compare accounts for best rates</li>
+                        <li><strong>Credit Building:</strong> Eligible for all credit products - start building history early</li>
+                        <li><strong>Tax Filing:</strong> File as resident alien (Form 1040) - subject to all U.S. taxes</li>
+                    </ul>
+                `,
+                quickTips: `
+                    <ul>
+                        <li>Maximize employer 401(k) match if available</li>
+                        <li>Build emergency fund (6-12 months of expenses)</li>
+                        <li>Start building credit history immediately</li>
+                        <li>Plan for long-term financial goals</li>
+                    </ul>
+                `
+            },
+            'Refugee': {
+                title: 'Refugee Status',
+                subtitle: 'Financial guidance for refugees resettling in the U.S.',
+                financialRules: `
+                    <ul>
+                        <li><strong>SSN:</strong> Apply immediately upon arrival at Social Security office</li>
+                        <li><strong>Banking:</strong> Eligible for all banking services - many banks offer special programs</li>
+                        <li><strong>Credit Building:</strong> Start building credit immediately with secured cards</li>
+                        <li><strong>Tax Filing:</strong> File as resident alien (Form 1040) - may be eligible for tax credits</li>
+                    </ul>
+                `,
+                quickTips: `
+                    <ul>
+                        <li>Work with your resettlement agency for guidance</li>
+                        <li>Look for banks with multilingual services</li>
+                        <li>Take advantage of free financial literacy programs</li>
+                        <li>Prioritize building emergency savings</li>
+                    </ul>
+                `
+            }
+        };
+
+        // Load content based on selected visa
+        function loadVisaContent() {
+            const selectedVisa = localStorage.getItem('selectedVisa') || 'F-1';
+            const content = visaContent[selectedVisa] || visaContent['F-1'];
+            
+            // Update heading
+            document.getElementById('visa-title').textContent = content.title;
+            document.getElementById('visa-subtitle').textContent = content.subtitle;
+            
+            // Update content sections
+            document.getElementById('financial-rules').innerHTML = content.financialRules;
+            document.getElementById('quick-tips').innerHTML = content.quickTips;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', loadVisaContent);
+    </script>
+</body>
+</html>
+
