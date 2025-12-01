@@ -1,41 +1,40 @@
 .tax-info {
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
 }
 
 .visa-selector {
   display: flex;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 6px;
+  margin-top: 8px;
 }
 
 .visa-btn {
   flex: 1;
-  padding: 12px;
-  border: 2px solid #3498db;
+  padding: 8px;
+  border: 1px solid #000000;
   background: white;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 0;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  color: #3498db;
-  transition: all 0.3s;
+  color: #000000;
 }
 
 .visa-btn.active {
-  background-color: #3498db;
+  background-color: #000000;
   color: white;
 }
 
 .tax-details {
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .tax-item {
   display: flex;
   justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 8px 0;
+  border-bottom: 1px dashed #cccccc;
 }
 
 .tax-item:last-child {
@@ -43,32 +42,34 @@
 }
 
 .tax-label {
-  font-weight: 600;
-  color: #2c3e50;
+  font-weight: 700;
+  color: #000000;
 }
 
 .tax-value {
-  color: #34495e;
+  color: #000000;
   font-weight: 500;
 }
 
 .tax-value.deadline {
-  color: #e74c3c;
-  font-weight: 600;
+  color: #000000;
+  font-weight: 700;
+  border: 1px solid #000000;
+  padding: 2px 6px;
 }
 
 .info-list {
   list-style: none;
   margin-left: 0;
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .info-list li {
-  padding: 10px 0;
-  color: #34495e;
-  font-size: 14px;
-  border-bottom: 1px solid #ecf0f1;
-  padding-left: 24px;
+  padding: 8px 0;
+  color: #000000;
+  font-size: 12px;
+  border-bottom: 1px dashed #cccccc;
+  padding-left: 20px;
   position: relative;
 }
 
@@ -77,10 +78,10 @@
 }
 
 .info-list li:before {
-  content: "•";
-  color: #3498db;
+  content: "-";
+  color: #000000;
   font-weight: bold;
   position: absolute;
   left: 0;
-  font-size: 20px;
+  font-size: 16px;
 }

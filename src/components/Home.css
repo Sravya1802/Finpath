@@ -1,105 +1,108 @@
 .home {
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
 }
 
 /* Visa Selection Card */
 .visa-selection-card {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .visa-header {
   text-align: center;
-  padding: 16px;
-  background: linear-gradient(135deg, #fadbd8 0%, #ffe0e0 100%);
-  border: 3px solid #e74c3c;
-  border-radius: 12px;
-  margin-bottom: 16px;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 0;
+  margin-bottom: 12px;
 }
 
 .visa-title {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
-  color: #2980b9;
+  color: #000000;
   margin-bottom: 4px;
 }
 
 .visa-subtitle {
-  font-size: 14px;
-  color: #2c3e50;
+  font-size: 12px;
+  color: #666666;
   margin: 0;
 }
 
 .visa-options {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .visa-option-card {
-  background: #fff9e6;
-  border: 2px solid #f39c12;
-  border-radius: 10px;
-  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 0;
+  padding: 10px 8px;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100px;
+  min-height: 80px;
   justify-content: center;
 }
 
-.visa-option-card:active {
-  transform: scale(0.95);
-}
-
 .visa-option-card.selected {
-  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-  border-color: #2ecc71;
-  border-width: 3px;
+  background: #000000;
+  border-color: #000000;
+  color: white;
 }
 
 .visa-option-title {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
-  color: #e67e22;
-  margin-bottom: 4px;
+  color: #000000;
+  margin-bottom: 2px;
 }
 
 .visa-option-card.selected .visa-option-title {
-  color: #27ae60;
+  color: #ffffff;
 }
 
 .visa-option-subtitle {
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 4px;
+  color: #000000;
+  margin-bottom: 2px;
+}
+
+.visa-option-card.selected .visa-option-subtitle {
+  color: #ffffff;
 }
 
 .visa-option-desc {
-  font-size: 11px;
-  color: #7f8c8d;
+  font-size: 10px;
+  color: #666666;
+}
+
+.visa-option-card.selected .visa-option-desc {
+  color: #cccccc;
 }
 
 .visa-info-display {
-  background: #fff9e6;
-  border: 2px solid #2ecc71;
-  border-radius: 10px;
-  padding: 16px;
-  margin-top: 12px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 0;
+  padding: 12px;
+  margin-top: 8px;
 }
 
 .visa-info-title {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
-  color: #27ae60;
-  margin-bottom: 12px;
-  border-bottom: 2px solid #2ecc71;
-  padding-bottom: 8px;
+  color: #000000;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #000000;
+  padding-bottom: 4px;
 }
 
 .visa-info-list {
@@ -109,10 +112,10 @@
 }
 
 .visa-info-list li {
-  padding: 8px 0;
-  color: #34495e;
-  font-size: 14px;
-  border-bottom: 1px solid #ecf0f1;
+  padding: 6px 0;
+  color: #000000;
+  font-size: 12px;
+  border-bottom: 1px dashed #cccccc;
 }
 
 .visa-info-list li:last-child {
@@ -120,163 +123,40 @@
 }
 
 .visa-info-list li:before {
-  content: "• ";
-  color: #2ecc71;
+  content: "- ";
+  color: #000000;
   font-weight: bold;
-  font-size: 18px;
-  margin-right: 8px;
+  margin-right: 4px;
 }
 
-/* Banks Section */
-.banks-section-card {
-  margin-bottom: 20px;
-}
-
+/* Section Header */
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .section-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
-  color: #2c3e50;
+  color: #000000;
   margin: 0;
-}
-
-.view-all-link {
-  font-size: 14px;
-  color: #3498db;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.banks-preview {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.bank-preview-card {
-  background: white;
-  border: 2px solid #9b59b6;
-  border-radius: 10px;
-  padding: 14px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.bank-preview-card.selected {
-  border-color: #2ecc71;
-  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-}
-
-.bank-preview-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.bank-preview-icon {
-  font-size: 28px;
-}
-
-.bank-preview-info {
-  flex: 1;
-}
-
-.bank-preview-info h4 {
-  font-size: 16px;
-  color: #2c3e50;
-  margin-bottom: 4px;
-}
-
-.bank-preview-badge {
-  display: inline-block;
-  background-color: #2ecc71;
-  color: white;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.bank-preview-features {
-  margin-top: 8px;
-}
-
-.bank-preview-feature {
-  font-size: 12px;
-  color: #7f8c8d;
-  margin: 4px 0;
-}
-
-/* Quick Actions */
-.quick-actions {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-top: 16px;
-}
-
-.action-card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  text-decoration: none;
-  color: inherit;
-  border: 2px solid #e0e0e0;
-  text-align: center;
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 120px;
-  justify-content: center;
-}
-
-.action-card:active {
-  transform: scale(0.98);
-}
-
-.action-card.urgent {
-  border-color: #e74c3c;
-  background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
-}
-
-.action-icon {
-  font-size: 36px;
-  margin-bottom: 8px;
-}
-
-.action-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 4px;
-}
-
-.action-desc {
-  font-size: 12px;
-  color: #7f8c8d;
 }
 
 /* FAQ Section */
 .faq-section-card {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .faq-list {
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 .faq-item {
-  margin-bottom: 8px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
+  margin-bottom: 6px;
+  border: 1px solid #000000;
+  border-radius: 0;
   overflow: hidden;
   background: white;
 }
@@ -286,44 +166,43 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 14px 16px;
+  padding: 10px 12px;
   background: white;
   border: none;
   text-align: left;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
-  color: #2c3e50;
+  color: #000000;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.faq-question:hover {
-  background-color: #f8f9fa;
 }
 
 .faq-question.active {
-  background-color: #e3f2fd;
-  color: #2980b9;
+  background-color: #000000;
+  color: white;
 }
 
 .faq-question-text {
   flex: 1;
-  margin-right: 12px;
+  margin-right: 8px;
 }
 
 .faq-icon {
-  font-size: 12px;
-  color: #3498db;
+  font-size: 10px;
+  color: #000000;
   flex-shrink: 0;
 }
 
+.faq-question.active .faq-icon {
+  color: #ffffff;
+}
+
 .faq-answer {
-  padding: 12px 16px;
-  background-color: #f8f9fa;
-  border-top: 1px solid #e0e0e0;
-  color: #34495e;
-  font-size: 14px;
-  line-height: 1.6;
+  padding: 10px 12px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #000000;
+  color: #000000;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .faq-answer p {

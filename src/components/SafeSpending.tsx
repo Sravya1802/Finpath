@@ -46,7 +46,7 @@ const SafeSpending: React.FC = () => {
   return (
     <div className="safe-spending">
       <div className="header">
-        <h1>💳 Safe Spending</h1>
+        <h1>Safe Spending</h1>
         <p>Calculate safe credit card spending limit</p>
       </div>
 

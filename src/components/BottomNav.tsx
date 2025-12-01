@@ -12,23 +12,23 @@ const BottomNav: React.FC = () => {
   return (
     <nav className="bottom-nav">
       <Link to="/" className={`nav-item ${isActive('/') ? 'active' : ''}`}>
-        <span className="nav-icon">🏠</span>
+        <span className="nav-icon">H</span>
         <span className="nav-label">Home</span>
       </Link>
       <Link to="/banks" className={`nav-item ${isActive('/banks') ? 'active' : ''}`}>
-        <span className="nav-icon">🏦</span>
+        <span className="nav-icon">B</span>
         <span className="nav-label">Banks</span>
       </Link>
       <Link to="/spending" className={`nav-item ${isActive('/spending') ? 'active' : ''}`}>
-        <span className="nav-icon">💳</span>
+        <span className="nav-icon">$</span>
         <span className="nav-label">Spending</span>
       </Link>
       <Link to="/alerts" className={`nav-item ${isActive('/alerts') ? 'active' : ''}`}>
-        <span className="nav-icon">🔔</span>
+        <span className="nav-icon">!</span>
         <span className="nav-label">Alerts</span>
       </Link>
       <Link to="/tax" className={`nav-item ${isActive('/tax') ? 'active' : ''}`}>
-        <span className="nav-icon">📅</span>
+        <span className="nav-icon">T</span>
         <span className="nav-label">Tax</span>
       </Link>
     </nav>

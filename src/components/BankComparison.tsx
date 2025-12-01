@@ -12,19 +12,19 @@ const BankComparison: React.FC = () => {
         name: 'Chase Student Checking',
         features: ['No monthly fee for students', 'No minimum balance', 'Mobile banking', 'Requires: Passport, Visa, I-20'],
         eligibility: 'Excellent for students',
-        icon: '🏦'
+        icon: '[B]'
       },
       {
         name: 'Bank of America Advantage Banking',
         features: ['Student account option', 'No monthly fee with student status', 'Online banking', 'Requires: SSN or ITIN'],
         eligibility: 'Good option',
-        icon: '🏛️'
+        icon: '[B]'
       },
       {
         name: 'Capital One 360',
         features: ['No fees', 'No minimum balance', 'Online-only', 'Requires: SSN or ITIN'],
         eligibility: 'Best for online banking',
-        icon: '💻'
+        icon: '[O]'
       }
     ],
     'H-1B': [
@@ -32,19 +32,19 @@ const BankComparison: React.FC = () => {
         name: 'Chase Total Checking',
         features: ['No monthly fee with direct deposit', 'Free checks', 'Mobile banking', 'Requires: SSN, Employment letter'],
         eligibility: 'Excellent option',
-        icon: '🏦'
+        icon: '[B]'
       },
       {
         name: 'Ally Bank',
         features: ['No monthly fees', 'High interest rates', 'Online-only', 'Requires: SSN'],
         eligibility: 'Best for savings',
-        icon: '💰'
+        icon: '[S]'
       },
       {
         name: 'Charles Schwab',
         features: ['No fees', 'ATM fee reimbursements', 'Investment options', 'Requires: SSN'],
         eligibility: 'Best for investing',
-        icon: '📈'
+        icon: '[I]'
       }
     ],
     'Refugee': [
@@ -52,19 +52,19 @@ const BankComparison: React.FC = () => {
         name: 'Local Credit Union',
         features: ['Lower fees', 'Community-focused', 'Multilingual support', 'Requires: SSN, Proof of address'],
         eligibility: 'Best for local support',
-        icon: '🤝'
+        icon: '[C]'
       },
       {
         name: 'Chase Total Checking',
         features: ['No monthly fee with direct deposit', 'Wide branch network', 'Requires: SSN'],
         eligibility: 'Good option',
-        icon: '🏦'
+        icon: '[B]'
       },
       {
         name: 'OneUnited Bank',
         features: ['Community-focused', 'Financial education', 'Requires: SSN'],
         eligibility: 'Best for financial literacy',
-        icon: '📚'
+        icon: '[E]'
       }
     ]
   };
@@ -81,7 +81,7 @@ const BankComparison: React.FC = () => {
   return (
     <div className="bank-comparison">
       <div className="header">
-        <h1>🏦 Compare Banks</h1>
+        <h1>Compare Banks</h1>
         <p>Select eligible bank options</p>
       </div>
 

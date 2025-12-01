@@ -12,14 +12,14 @@ const CriticalAlerts: React.FC = () => {
           title: 'Tax Filing Deadline Approaching',
           message: 'File Form 1040NR by April 15th if you have U.S. income',
           date: 'Due in 45 days',
-          icon: '🚨',
+          icon: '[!]',
           priority: 'high'
         },
         {
           title: 'OPT Application Window',
           message: 'Apply for Optional Practical Training 90 days before program end',
           date: 'Check your program end date',
-          icon: '📝',
+          icon: '[D]',
           priority: 'medium'
         }
       ],
@@ -28,7 +28,7 @@ const CriticalAlerts: React.FC = () => {
           title: 'Credit Report Check',
           message: 'Review your credit report at annualcreditreport.com',
           date: 'Monthly reminder',
-          icon: '📊',
+          icon: '[R]',
           priority: 'low'
         }
       ]
@@ -39,14 +39,14 @@ const CriticalAlerts: React.FC = () => {
           title: 'Tax Filing Deadline Approaching',
           message: 'File Form 1040 by April 15th',
           date: 'Due in 45 days',
-          icon: '🚨',
+          icon: '[!]',
           priority: 'high'
         },
         {
           title: '401(k) Contribution Deadline',
           message: 'Maximize your 401(k) contributions before December 31st',
           date: 'Due in 30 days',
-          icon: '💰',
+          icon: '[K]',
           priority: 'high'
         }
       ],
@@ -55,7 +55,7 @@ const CriticalAlerts: React.FC = () => {
           title: 'H-1B Extension Review',
           message: 'Check your visa expiration date',
           date: 'Quarterly reminder',
-          icon: '🔄',
+          icon: '[E]',
           priority: 'medium'
         }
       ]
@@ -66,14 +66,14 @@ const CriticalAlerts: React.FC = () => {
           title: 'SSN Application Urgent',
           message: 'Apply for Social Security Number immediately if you haven\'t already',
           date: 'Urgent',
-          icon: '🚨',
+          icon: '[!]',
           priority: 'high'
         },
         {
           title: 'Tax Filing Deadline',
           message: 'File Form 1040 by April 15th',
           date: 'Due in 45 days',
-          icon: '📅',
+          icon: '[T]',
           priority: 'high'
         }
       ],
@@ -82,7 +82,7 @@ const CriticalAlerts: React.FC = () => {
           title: 'Benefits Application Review',
           message: 'Check eligibility for government benefits',
           date: 'Monthly reminder',
-          icon: '🤝',
+          icon: '[B]',
           priority: 'medium'
         }
       ]
@@ -101,7 +101,7 @@ const CriticalAlerts: React.FC = () => {
   return (
     <div className="critical-alerts">
       <div className="header">
-        <h1>🔔 Critical Alerts</h1>
+        <h1>Critical Alerts</h1>
         <p>Upcoming deadlines and reminders</p>
       </div>
 
@@ -131,7 +131,7 @@ const CriticalAlerts: React.FC = () => {
         </div>
 
         <div className="alerts-section">
-          <h2 className="section-title">🚨 Critical Alerts</h2>
+          <h2 className="section-title">Critical Alerts</h2>
           {alerts.critical.map((alert, index) => (
             <div key={index} className={`alert-card critical`}>
               <div className="alert-header">
@@ -147,7 +147,7 @@ const CriticalAlerts: React.FC = () => {
         </div>
 
         <div className="alerts-section">
-          <h2 className="section-title">📋 Regular Reminders</h2>
+          <h2 className="section-title">Regular Reminders</h2>
           {alerts.regular.map((alert, index) => (
             <div key={index} className="alert-card regular">
               <div className="alert-header">

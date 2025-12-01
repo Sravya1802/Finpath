@@ -71,7 +71,7 @@ const TaxInfo: React.FC = () => {
   return (
     <div className="tax-info">
       <div className="header">
-        <h1>📅 Tax Information</h1>
+        <h1>Tax Information</h1>
         <p>Tax filing guide for your visa type</p>
       </div>
 

@@ -1,21 +1,21 @@
 .safe-spending {
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
 }
 
 .result-box {
-  margin-top: 16px;
-  padding: 16px;
-  border: 2px solid;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #000000;
+  border-radius: 0;
+  background-color: #ffffff;
 }
 
 .result-item {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 6px 0;
+  border-bottom: 1px dashed #cccccc;
 }
 
 .result-item:last-child {
@@ -24,11 +24,10 @@
 
 .info-card {
   background: white;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border: 2px solid #16a085;
+  border-radius: 0;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #000000;
 }
 
 .info-card ul {
@@ -37,10 +36,10 @@
 }
 
 .info-card li {
-  padding: 8px 0;
-  color: #34495e;
-  font-size: 14px;
-  border-bottom: 1px solid #ecf0f1;
+  padding: 6px 0;
+  color: #000000;
+  font-size: 12px;
+  border-bottom: 1px dashed #cccccc;
 }
 
 .info-card li:last-child {
@@ -48,8 +47,8 @@
 }
 
 .info-card li:before {
-  content: "✓ ";
-  color: #2ecc71;
+  content: "- ";
+  color: #000000;
   font-weight: bold;
-  margin-right: 8px;
+  margin-right: 4px;
 }

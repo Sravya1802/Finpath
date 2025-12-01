@@ -12,7 +12,7 @@ const MoneyTransfer: React.FC = () => {
       fee: '0.5-1%',
       speed: '1-2 days',
       rating: 'Best rates',
-      icon: '💸',
+      icon: '[W]',
       costEffective: true,
       safest: true,
       description: 'Low fees, transparent exchange rates'
@@ -22,7 +22,7 @@ const MoneyTransfer: React.FC = () => {
       fee: '1-3%',
       speed: 'Same day',
       rating: 'Fast transfers',
-      icon: '⚡',
+      icon: '[R]',
       costEffective: true,
       safest: true,
       description: 'Fast delivery, competitive rates'
@@ -32,7 +32,7 @@ const MoneyTransfer: React.FC = () => {
       fee: '2-5%',
       speed: 'Same day',
       rating: 'Wide network',
-      icon: '🌍',
+      icon: '[WU]',
       costEffective: false,
       safest: true,
       description: 'Largest network, many locations'
@@ -42,7 +42,7 @@ const MoneyTransfer: React.FC = () => {
       fee: '2.9% + fixed',
       speed: 'Instant',
       rating: 'Convenient',
-      icon: '📱',
+      icon: '[P]',
       costEffective: false,
       safest: true,
       description: 'Easy to use, widely accepted'
@@ -68,7 +68,7 @@ const MoneyTransfer: React.FC = () => {
   return (
     <div className="money-transfer">
       <div className="header">
-        <h1>💸 Money Transfer</h1>
+        <h1>Money Transfer</h1>
         <p>Compare safest and cost-effective options</p>
       </div>
 
@@ -102,7 +102,7 @@ const MoneyTransfer: React.FC = () => {
                     <p className="service-desc">{service.description}</p>
                   </div>
                   {(service.costEffective && service.safest) && (
-                    <span className="recommended-badge">⭐ Best</span>
+                    <span className="recommended-badge">Best</span>
                   )}
                 </div>
                 
