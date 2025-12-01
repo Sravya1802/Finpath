@@ -1,0 +1,102 @@
+.bank-comparison {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.visa-selector {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.visa-btn {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #3498db;
+  background: white;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #3498db;
+  transition: all 0.3s;
+}
+
+.visa-btn.active {
+  background-color: #3498db;
+  color: white;
+}
+
+.banks-list {
+  margin-top: 16px;
+}
+
+.bank-card {
+  background: white;
+  border: 2px solid #9b59b6;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.bank-card.selected {
+  border-color: #2ecc71;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+}
+
+.bank-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.bank-icon {
+  font-size: 32px;
+}
+
+.bank-header h3 {
+  font-size: 18px;
+  color: #2c3e50;
+  margin-bottom: 4px;
+}
+
+.eligibility-badge {
+  display: inline-block;
+  background-color: #2ecc71;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.bank-features {
+  list-style: none;
+  margin-left: 0;
+}
+
+.bank-features li {
+  padding: 6px 0;
+  color: #34495e;
+  font-size: 14px;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.bank-features li:last-child {
+  border-bottom: none;
+}
+
+.selected-indicator {
+  margin-top: 12px;
+  padding: 8px;
+  background-color: #2ecc71;
+  color: white;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}

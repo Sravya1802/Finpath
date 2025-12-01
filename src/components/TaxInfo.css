@@ -1,0 +1,86 @@
+.tax-info {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.visa-selector {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.visa-btn {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #3498db;
+  background: white;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #3498db;
+  transition: all 0.3s;
+}
+
+.visa-btn.active {
+  background-color: #3498db;
+  color: white;
+}
+
+.tax-details {
+  margin-top: 12px;
+}
+
+.tax-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tax-item:last-child {
+  border-bottom: none;
+}
+
+.tax-label {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.tax-value {
+  color: #34495e;
+  font-weight: 500;
+}
+
+.tax-value.deadline {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.info-list {
+  list-style: none;
+  margin-left: 0;
+  margin-top: 12px;
+}
+
+.info-list li {
+  padding: 10px 0;
+  color: #34495e;
+  font-size: 14px;
+  border-bottom: 1px solid #ecf0f1;
+  padding-left: 24px;
+  position: relative;
+}
+
+.info-list li:last-child {
+  border-bottom: none;
+}
+
+.info-list li:before {
+  content: "•";
+  color: #3498db;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  font-size: 20px;
+}
