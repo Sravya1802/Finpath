@@ -82,6 +82,19 @@
   font-size: 13px;
 }
 
+.input-group.result-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.input-group.result-row label {
+  display: inline-block;
+  min-width: 180px;
+  margin-bottom: 0;
+  margin-right: 8px;
+}
+
 .input-group input,
 .input-group select {
   width: 100%;

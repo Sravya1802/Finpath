@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SafeSpending.css';
 import { SafeSpendingResult } from '../types';
 
@@ -6,6 +6,11 @@ const SafeSpending: React.FC = () => {
   const [creditLimit, setCreditLimit] = useState<string>('');
   const [currentBalance, setCurrentBalance] = useState<string>('');
   const [result, setResult] = useState<SafeSpendingResult | null>(null);
+  
+  // Monthly Payment Calculator state
+  const [cardBalance, setCardBalance] = useState<string>('');
+  const [interestRate, setInterestRate] = useState<string>('');
+  const [monthlyPayment, setMonthlyPayment] = useState<number | null>(null);
 
   const calculateSafeSpending = (): void => {
     const limit = parseFloat(creditLimit);
@@ -22,16 +27,12 @@ const SafeSpending: React.FC = () => {
     const currentUtilization = (balance / limit * 100).toFixed(1);
 
     let status = '';
-    let statusColor = '';
     if (parseFloat(currentUtilization) < 30) {
-      status = '✓ Good';
-      statusColor = '#2ecc71';
+      status = 'Good';
     } else if (parseFloat(currentUtilization) < 50) {
-      status = '⚠ Getting high';
-      statusColor = '#f39c12';
+      status = 'Getting high';
     } else {
-      status = '✗ Too high';
-      statusColor = '#e74c3c';
+      status = 'Too high';
     }
 
     setResult({
@@ -39,8 +40,29 @@ const SafeSpending: React.FC = () => {
       safeSpending: Math.max(0, safeSpending),
       maxSafeBalance,
       status,
-      statusColor
+      statusColor: '#000000'
     });
+  };
+
+  const calculateMonthlyPayment = (): void => {
+    const balance = parseFloat(cardBalance);
+    const rate = parseFloat(interestRate);
+
+    if (!balance || balance <= 0 || !rate || rate <= 0) {
+      setMonthlyPayment(null);
+      return;
+    }
+
+    // Calculate monthly payment using simple interest formula
+    // Monthly payment = (Balance * (Rate/12/100)) / (1 - (1 + Rate/12/100)^(-12))
+    // For simplicity, using minimum payment calculation: 2% of balance + interest
+    const monthlyRate = rate / 12 / 100;
+    const minPaymentPercent = 0.02; // 2% minimum payment
+    const minPayment = balance * minPaymentPercent;
+    const interestPayment = balance * monthlyRate;
+    const totalMonthlyPayment = minPayment + interestPayment;
+
+    setMonthlyPayment(totalMonthlyPayment);
   };
 
   return (
@@ -61,8 +83,34 @@ const SafeSpending: React.FC = () => {
               placeholder="Type here the limit"
               value={creditLimit}
               onChange={(e) => {
-                setCreditLimit(e.target.value);
-                setResult(null);
+                const newLimit = e.target.value;
+                setCreditLimit(newLimit);
+                // Recalculate with new limit
+                const balance = parseFloat(currentBalance) || 0;
+                const limit = parseFloat(newLimit);
+                if (limit > 0) {
+                  const safeUtilization = 0.30;
+                  const maxSafeBalance = limit * safeUtilization;
+                  const safeSpending = maxSafeBalance - balance;
+                  const currentUtilization = (balance / limit * 100).toFixed(1);
+                  let status = '';
+                  if (parseFloat(currentUtilization) < 30) {
+                    status = 'Good';
+                  } else if (parseFloat(currentUtilization) < 50) {
+                    status = 'Getting high';
+                  } else {
+                    status = 'Too high';
+                  }
+                  setResult({
+                    currentUtilization,
+                    safeSpending: Math.max(0, safeSpending),
+                    maxSafeBalance,
+                    status,
+                    statusColor: '#000000'
+                  });
+                } else {
+                  setResult(null);
+                }
               }}
               onBlur={calculateSafeSpending}
             />
@@ -75,42 +123,123 @@ const SafeSpending: React.FC = () => {
               placeholder="Type here the balance"
               value={currentBalance}
               onChange={(e) => {
-                setCurrentBalance(e.target.value);
-                setResult(null);
+                const newBalance = e.target.value;
+                setCurrentBalance(newBalance);
+                // Recalculate with new balance
+                const limit = parseFloat(creditLimit);
+                const balance = parseFloat(newBalance) || 0;
+                if (limit > 0) {
+                  const safeUtilization = 0.30;
+                  const maxSafeBalance = limit * safeUtilization;
+                  const safeSpending = maxSafeBalance - balance;
+                  const currentUtilization = (balance / limit * 100).toFixed(1);
+                  let status = '';
+                  if (parseFloat(currentUtilization) < 30) {
+                    status = 'Good';
+                  } else if (parseFloat(currentUtilization) < 50) {
+                    status = 'Getting high';
+                  } else {
+                    status = 'Too high';
+                  }
+                  setResult({
+                    currentUtilization,
+                    safeSpending: Math.max(0, safeSpending),
+                    maxSafeBalance,
+                    status,
+                    statusColor: '#000000'
+                  });
+                } else {
+                  setResult(null);
+                }
               }}
               onBlur={calculateSafeSpending}
             />
           </div>
 
-          {result && (
-            <div className="result-box" style={{ borderColor: result.statusColor }}>
-              <div className="result-item">
-                <strong>Current Utilization:</strong>
-                <span style={{ color: result.statusColor, fontWeight: 700 }}>
-                  {result.currentUtilization}% {result.status}
-                </span>
-              </div>
-              <div className="result-item">
-                <strong>Safe Spending Limit:</strong>
-                <span style={{ color: '#3498db', fontWeight: 700 }}>
-                  ${result.safeSpending.toFixed(2)}
-                </span>
-              </div>
-              <div className="result-item">
-                <strong>Max Safe Balance:</strong>
-                <span>${result.maxSafeBalance.toFixed(2)}</span>
-              </div>
-            </div>
-          )}
+          <div className="input-group result-row">
+            <label>Current Utilization:</label>
+            <span style={{ fontWeight: 700 }}>
+              {result ? `${result.currentUtilization}% ${result.status}` : '-'}
+            </span>
+          </div>
+
+          <div className="input-group result-row">
+            <label>Safe Spending Limit:</label>
+            <span style={{ fontWeight: 700 }}>
+              {result ? `$${result.safeSpending.toFixed(2)}` : '-'}
+            </span>
+          </div>
+
+          <div className="input-group result-row">
+            <label>Max Safe Balance:</label>
+            <span>
+              {result ? `$${result.maxSafeBalance.toFixed(2)}` : '-'}
+            </span>
+          </div>
         </div>
 
-        <div className="info-card">
-          <div className="card-title">💡 Tips</div>
-          <ul>
-            <li>Keep credit utilization below 30%</li>
-            <li>Pay off balances monthly when possible</li>
-            <li>Monitor your credit score regularly</li>
-          </ul>
+        <div className="card">
+          <div className="card-title">Monthly Payment Calculator</div>
+          
+          <div className="input-group">
+            <label>Credit Card Balance ($)</label>
+            <input
+              type="number"
+              placeholder="Enter balance"
+              value={cardBalance}
+              onChange={(e) => {
+                const newBalance = e.target.value;
+                setCardBalance(newBalance);
+                const balance = parseFloat(newBalance);
+                const rate = parseFloat(interestRate);
+                if (balance > 0 && rate > 0) {
+                  const monthlyRate = rate / 12 / 100;
+                  const minPaymentPercent = 0.02;
+                  const minPayment = balance * minPaymentPercent;
+                  const interestPayment = balance * monthlyRate;
+                  const totalMonthlyPayment = minPayment + interestPayment;
+                  setMonthlyPayment(totalMonthlyPayment);
+                } else {
+                  setMonthlyPayment(null);
+                }
+              }}
+              onBlur={calculateMonthlyPayment}
+            />
+          </div>
+
+          <div className="input-group">
+            <label>Annual Interest Rate (%)</label>
+            <input
+              type="number"
+              step="0.01"
+              placeholder="e.g., 18.99"
+              value={interestRate}
+              onChange={(e) => {
+                const newRate = e.target.value;
+                setInterestRate(newRate);
+                const balance = parseFloat(cardBalance);
+                const rate = parseFloat(newRate);
+                if (balance > 0 && rate > 0) {
+                  const monthlyRate = rate / 12 / 100;
+                  const minPaymentPercent = 0.02;
+                  const minPayment = balance * minPaymentPercent;
+                  const interestPayment = balance * monthlyRate;
+                  const totalMonthlyPayment = minPayment + interestPayment;
+                  setMonthlyPayment(totalMonthlyPayment);
+                } else {
+                  setMonthlyPayment(null);
+                }
+              }}
+              onBlur={calculateMonthlyPayment}
+            />
+          </div>
+
+          <div className="input-group result-row">
+            <label>Estimated Monthly Payment:</label>
+            <span style={{ fontWeight: 700 }}>
+              {monthlyPayment !== null && monthlyPayment > 0 ? `$${monthlyPayment.toFixed(2)}` : '-'}
+            </span>
+          </div>
         </div>
       </div>
     </div>

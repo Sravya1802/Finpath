@@ -127,14 +127,6 @@ const TaxInfo: React.FC = () => {
           </ul>
         </div>
 
-        <div className="card">
-          <div className="card-title">💡 Tips</div>
-          <ul className="info-list">
-            {info.tips.map((tip, index) => (
-              <li key={index}>{tip}</li>
-            ))}
-          </ul>
-        </div>
       </div>
     </div>
   );

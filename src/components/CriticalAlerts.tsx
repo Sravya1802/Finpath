@@ -139,7 +139,6 @@ const CriticalAlerts: React.FC = () => {
                 <div className="alert-content">
                   <h3>{alert.title}</h3>
                   <p>{alert.message}</p>
-                  <span className="alert-date">{alert.date}</span>
                 </div>
               </div>
             </div>
@@ -155,7 +154,6 @@ const CriticalAlerts: React.FC = () => {
                 <div className="alert-content">
                   <h3>{alert.title}</h3>
                   <p>{alert.message}</p>
-                  <span className="alert-date">{alert.date}</span>
                 </div>
               </div>
             </div>
